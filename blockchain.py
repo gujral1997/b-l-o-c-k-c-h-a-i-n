@@ -78,7 +78,7 @@ def mine_block():
                 'index': block['index'],
                 'timestamp': block['timestamp'],
                 'proof': block['proof'],
-                previous_hash: block['previous_hash']
+                'previous_hash': block['previous_hash']
                 }
     return jsonify(response), 200
 
@@ -89,3 +89,6 @@ def get_chain():
                 'lenght': len(blockchain.chain)
     }
     return jsonify(response), 200
+
+# Running the app
+app.run(host = '0.0.0.0', port = 5000)
