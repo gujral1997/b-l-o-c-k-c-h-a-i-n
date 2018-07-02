@@ -1,1 +1,1 @@
-# A simple impementation of blockchain
+# A simple implementation of blockchain
