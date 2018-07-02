@@ -14,10 +14,10 @@ class Blockchain:
 
     def create_block(self, proof, previous_hash):
         block = {'index': len(self.chain) + 1,
-                'timestamp': str(datetime.datetime.now()),
-                'proof': proof,
-                'previous_hash': previous_hash
-        }
+                 'timestamp': str(datetime.datetime.now()),
+                 'proof': proof,
+                 'previous_hash': previous_hash
+                 }
         self.chain.append(block)
         return block
 
@@ -33,7 +33,7 @@ class Blockchain:
                 check_proof = True
             else:
                 new_proof += 1
-            return new_proof
+        return new_proof
     
     def hash(self, block):
         encoded_block = json.dumps(block, sort_keys = True).encode()
@@ -86,8 +86,19 @@ def mine_block():
 @app.route('/get_chain', methods = ['GET'])
 def get_chain():
     response = {'chain': blockchain.chain,
-                'lenght': len(blockchain.chain)
+                'length': len(blockchain.chain)
     }
+    return jsonify(response), 200
+
+# Checking whether chain is valid or not
+
+@app.route('/is_valid', methods = ['GET'])
+def is_valid():
+    is_valid = blockchain.is_chain_valid(blockchain.chain)
+    if is_valid:
+        response = {'message': 'Chain is valid'}
+    else:
+        response = {'message': 'Chain is not valid'}
     return jsonify(response), 200
 
 # Running the app
